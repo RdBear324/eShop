@@ -3,15 +3,14 @@ from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///shop.db'
-db = SQLAlchemy
+db = SQLAlchemy(app)
 
 
 class Item(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(150), nullabel=False)
-    price = db.Column(db.Integer, nullabel=False)
+    title = db.Column(db.String(150), nullable=False)
+    price = db.Column(db.Integer, nullable=False)
     isActive = db.Column(db.Boolean, default=True)
-    text = db.Column(db.Text, nullabel=False)
 
 
 @app.route('/')
@@ -22,6 +21,11 @@ def index():
 @app.route('/about')
 def about():
     return render_template('about.html')
+
+
+@app.route('/create')
+def create():
+    return render_template('create.html')
 
 
 if __name__ == '__main__':
