@@ -18,7 +18,8 @@ class Item(db.Model):
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    items = Item.query.order_by(Item.price).all()
+    return render_template('index.html', data=items)
 
 
 @app.route('/about')
